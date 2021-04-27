@@ -183,10 +183,23 @@ Use the getAverageWordLength function below to do the following:
     For example: getAverageWordLength(originalFlavors) should return a number between 0 and 3.     
 */
 
-function getAverageWordLength(/*code here*/){
-    /*code here*/
+function getAverageWordLength(originalFlavorsTwo){
+    const numberOfWords = [];
+    let averageWords = 0;
+    originalFlavorsTwo.forEach((flavor) => {
+        let words = flavor.trim().split(/\s+/).length;
+        // console.log(flavor + ': ' + String(words));
+        numberOfWords.push(words);
+    });
+
+    numberOfWords.forEach((num) => {
+        averageWords += num;
+    });
+
+    return averageWords / numberOfWords.length;
 }
 
+console.log(getAverageWordLength(originalFlavors));
 
 /* 💪💪💪💪💪💪💪💪💪💪 STRETCH 2: 💪💪💪💪💪💪💪💪💪
 Baskin Robins now offers new flavors, seasonal flavors, and even regional flavors. Write a function that will randomly select a total of 31 flavors 
@@ -201,8 +214,28 @@ Use the getRandomFlavors function and new arrays below to do the following:
 */
 
 
-function getRandomFlavors(/*code here*/){
-    /*code here*/
+function getRandomFlavors(originalFlavorsTwo, newFlavorsTwo, seasonalFlavorsTwo, regionalFlavorsTwo){
+    const FLAVORS = 31;
+    const randomFlavors = []
+    const allFlavors = [originalFlavorsTwo, newFlavorsTwo, seasonalFlavorsTwo, regionalFlavorsTwo];
+
+    for(let i = 0; i < FLAVORS; i++) {
+        // Choose flavor here
+        let randomFlavorList = allFlavors[Math.floor(Math.random() * allFlavors.length)];
+        let randomFlavor = randomFlavorList[Math.floor(Math.random() * randomFlavorList.length)];
+
+        // If we don't already have the flavor, add it
+        if(!randomFlavors.includes(randomFlavor)) {
+            randomFlavors.push(randomFlavor);
+        } 
+        // If we do have the flavor, deincrement the loop by 1, then start from the top again.
+        else {
+            console.log("Duplicate found, trying again");
+            i--;
+        }
+    }
+
+    return randomFlavors;
 }
 
 // NEW DATA ARRAYS FOR STRETCH 2 ⬇️
@@ -286,7 +319,9 @@ const regionalFlavors = [
     "Caramel 'n' Cookies"
 ]
 
-
+let randomFlavors = getRandomFlavors(originalFlavors, newFlavors, seasonalFlavors, regionalFlavors);
+console.log(randomFlavors);
+console.log(randomFlavors.length);
 
 /* 🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑 Please do not modify anything below this line 🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑 */
 function foo(){
